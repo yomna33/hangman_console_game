@@ -7,6 +7,7 @@ public class Game {
     private int wrong_attempts = 0;
     private String word ;
     private char guessed[];
+    boolean iswin = false;
 
      
     public Game(Scanner input){
@@ -37,7 +38,7 @@ public class Game {
         setupGame();
         playround();
 
-    int score = ScoreManager.calculate(word, wrong_attempts);
+    int score = ScoreManager.calculate(word, wrong_attempts, iswin);
     System.out.println("Your score: " + score);
     System.out.println("Enter your name to save score: ");
     String name = input.next();
@@ -62,7 +63,7 @@ public class Game {
 
         }
 
-        private void playround() {
+        private boolean playround() {
 
             while (true) {
                  System.out.print(HangmanArt.hangman_art(wrong_attempts));
@@ -98,14 +99,15 @@ public class Game {
 
                 System.out.println("Game over! The word was: " + word);
                 System.out.print(HangmanArt.hangman_art(wrong_attempts));
-                break;
+                return false;
 
             }
             else if (new String(guessed).equals(word)) {
 
                 System.out.println("Congratulations! You guessed the word: " + word);
                 System.out.print(HangmanArt.hangman_art(wrong_attempts));
-                break;
+                return iswin = true;
+                
             }
 
             System.out.println(); 

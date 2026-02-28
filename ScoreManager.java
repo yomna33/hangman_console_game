@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,11 +26,18 @@ static {
     }
 }
 
-public static int calculate(String word, int wrong_attempts) {
-
+public static int calculate(String word, int wrong_attempts ,boolean iswin) {
+    if (iswin) {
+        
         int penality = wrong_attempts * 5;
         int score = Math.max(0, (word.length() * 10) - penality);
         return score;
+
+    }
+    else{
+        int score =0;
+        return score;
+    }
 
     }
 
