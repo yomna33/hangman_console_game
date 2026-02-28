@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,11 +11,23 @@ import java.util.Map;
 
 
 public class ScoreManager {
+    
 
-    public static String file_path = "scores.txt";
-    
-    
-    public static int calculate(String word, int wrong_attempts) {
+public static String file_path = "scores.txt";
+
+// ensure the score file exists before any other static methods run
+static {
+    File file = new File(file_path);
+    if (!file.exists()) {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating score file: " + file_path);
+        }
+    }
+}
+
+public static int calculate(String word, int wrong_attempts) {
 
         int penality = wrong_attempts * 5;
         int score = Math.max(0, (word.length() * 10) - penality);
@@ -40,8 +53,8 @@ public class ScoreManager {
 
             }
             else {
-                scoreBoard.put(name, score);
 
+                scoreBoard.put(name, score);
             }
         }
         

@@ -6,7 +6,6 @@ public class Game {
     private Scanner input;
     private int wrong_attempts = 0;
     private String word ;
-    private boolean game_over = false;
     private char guessed[];
 
      
@@ -15,42 +14,40 @@ public class Game {
         this.input = input;
     }
     public void run() {
-        while (game_over == false) {
-            String difficulty = Menu.chooseDifficulty(input);
-            if (difficulty.equals("exit")) {
+        
+    String difficulty = Menu.chooseDifficulty(input);
+    if (difficulty.equals("exit")) {
 
-                System.out.println("Goodbye");
-                Main.end = true;
+        System.out.println("Goodbye");
+        Main.end = true;
 
-                break;
-
-            }
-            else if (difficulty.equals("clear_scores")) {
-
-                ScoreManager.clearScores();
-                System.out.println("Score board cleared!");
-                continue;
-
-            }
-
-                word = WordPicker.wordPicker(difficulty);
-                guessed = new char[word.length()];
-
-                setupGame();
-                playround();
-
-            int score = ScoreManager.calculate(word, wrong_attempts);
-            System.out.println("Your score: " + score);
-            System.out.println("Enter your name to save score: ");
-            String name = input.next();
-            ScoreManager.save(name, score);
-            ScoreManager.displayScores();
-
-        }
     }
+    else if (difficulty.equals("clear_scores")) {
 
+        ScoreManager.clearScores();
+        System.out.println("Score board cleared!");
+        return;
         
 
+    }
+
+        word = WordPicker.wordPicker(difficulty);
+        guessed = new char[word.length()];
+
+        setupGame();
+        playround();
+
+    int score = ScoreManager.calculate(word, wrong_attempts);
+    System.out.println("Your score: " + score);
+    System.out.println("Enter your name to save score: ");
+    String name = input.next();
+    ScoreManager.save(name, score);
+    ScoreManager.displayScores();
+
+        
+    }
+
+    
         private void setupGame() {
 
             wrong_attempts = 0;
@@ -100,7 +97,6 @@ public class Game {
             if (wrong_attempts == 6) {
 
                 System.out.println("Game over! The word was: " + word);
-                game_over = true;
                 System.out.print(HangmanArt.hangman_art(wrong_attempts));
                 break;
 
@@ -108,7 +104,6 @@ public class Game {
             else if (new String(guessed).equals(word)) {
 
                 System.out.println("Congratulations! You guessed the word: " + word);
-                game_over = true;
                 System.out.print(HangmanArt.hangman_art(wrong_attempts));
                 break;
             }
