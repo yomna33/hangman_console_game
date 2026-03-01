@@ -21,6 +21,8 @@ public class Game {
 
         System.out.println("Goodbye");
         Main.end = true;
+        // stop the current run 
+        return;
 
     }
     else if (difficulty.equals("clear_scores")) {

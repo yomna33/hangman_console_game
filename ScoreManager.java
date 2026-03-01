@@ -17,7 +17,7 @@ public static String file_path = "scores.txt";
 // ensure the score file exists before any other static methods run
 static {
     File file = new File(file_path);
-    if (!file.exists()) {
+    if (!file.exists()) { //creates the file if it doesn't exist
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -26,7 +26,7 @@ static {
     }
 }
 
-public static int calculate(String word, int wrong_attempts ,boolean iswin) {
+public static int calculate(String word, int wrong_attempts ,boolean iswin) { //calculate scores
     if (iswin) {
         
         int penality = wrong_attempts * 5;
@@ -44,12 +44,12 @@ public static int calculate(String word, int wrong_attempts ,boolean iswin) {
     public static void save(String name , int score) {
         Map<String, Integer> scoreBoard = new HashMap<>();
 
-        try(BufferedReader reader = new BufferedReader (new FileReader(file_path))) {
+        try(BufferedReader reader = new BufferedReader (new FileReader(file_path))) { //read existing scores from the file
             String line;
             
             while((line = reader.readLine()) != null) {
-                String [] parts = line.split(":");
-                scoreBoard.put(parts[0] , Integer.parseInt(parts[1]));
+                String [] parts = line.split(":"); //splits the line into name and score
+                scoreBoard.put(parts[0] , Integer.parseInt(parts[1])); 
 
             }
             if (scoreBoard.containsKey(name)) { //check if the player already has a score in the board
@@ -75,7 +75,7 @@ public static int calculate(String word, int wrong_attempts ,boolean iswin) {
         try(BufferedWriter writer = new BufferedWriter (new FileWriter(file_path))){
 
             for (Map.Entry<String, Integer> entry : scoreBoard.entrySet()) {
-                writer.write(entry.getKey() + ":" + entry.getValue());
+                writer.write(entry.getKey() + ":" + entry.getValue()); //writes the scores to the file
                 writer.newLine();
             }
         }
@@ -94,7 +94,7 @@ public static int calculate(String word, int wrong_attempts ,boolean iswin) {
             while((line = reader.readLine()) != null) {
 
                 String[] ScoreBoard = line.split(":");
-                System.out.println(ScoreBoard[0] + " : " + ScoreBoard[1]);
+                System.out.println(ScoreBoard[0] + " : " + ScoreBoard[1]); //prints the name and score of each player in the score board
 
             }
             
@@ -110,7 +110,7 @@ public static int calculate(String word, int wrong_attempts ,boolean iswin) {
     }
 
     public static void clearScores() {
-            try(BufferedWriter writer = new BufferedWriter (new FileWriter(file_path))){
+            try(BufferedWriter writer = new BufferedWriter (new FileWriter(file_path))){ //clears the score file
                 
             }
 
